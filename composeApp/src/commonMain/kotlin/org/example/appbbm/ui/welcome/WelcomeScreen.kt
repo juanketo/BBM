@@ -1,6 +1,7 @@
 package org.example.appbbm.ui.welcome
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,7 +27,9 @@ import appbbm.composeapp.generated.resources.ballet_gissel
 import appbbm.composeapp.generated.resources.prueba
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import org.example.appbbm.ui.events.EventScreen
 import org.example.appbbm.ui.greeting.GreetingScreen
+import org.example.appbbm.ui.promotion.PromotionScreen
 import org.jetbrains.compose.resources.painterResource
 
 class WelcomeScreen : Screen {
@@ -32,9 +37,19 @@ class WelcomeScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
+
+        val gradientBrush = Brush.verticalGradient(
+            colors = listOf(
+                Color(0xFFFA8182.toInt()),
+                Color(0xFFAE93EE.toInt()),
+                Color(0xFF1EBCD2.toInt())
+            )
+        )
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .background(gradientBrush)
                 .padding(16.dp),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -68,14 +83,14 @@ class WelcomeScreen : Screen {
                     Text(text = "Empieza Ahora", fontSize = 16.sp)
                 }
                 OutlinedButton(
-                    onClick = { /* Acción para "Ya tengo cuenta" */ },
+                    onClick = {navigator?.push(EventScreen())},
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(text = "Ya tengo cuenta", fontSize = 16.sp)
                 }
                 OutlinedButton(
-                    onClick = { },
+                    onClick = {navigator?.push(PromotionScreen()) },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(8.dp)
                 ) {
